@@ -9,12 +9,13 @@ public class Sound {
 	public Sound(){
 		File Clap = new File("E:\\ASPIRE V NITRO\\ASPIREVNITRO\\view\\Music\\Rockstar.wav");
 		PlaySound(Clap);
-
-		
 	
 	
 	}
 	
+	/**
+     * Class that contains all musics used in our project
+     */
 	
 	public static void Rockstar(){
 		File rockstar = new File("E:\\ASPIRE V NITRO\\ASPIREVNITRO\\view\\Music\\Rockstar.wav");
