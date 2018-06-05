@@ -1,4 +1,4 @@
-# JPU-BlankProject
+# Groupe 7 - Exia.Cesi Alger
 Base de démarrage pour le projet Java/POO/UML des 1ières années Exia-Cesi
 =======
 # lorann
