@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * The Class Controller.
+ * The Class Controller
  */
 @SuppressWarnings("deprecation")
 public class Controller implements IController, Observer {
@@ -28,7 +28,7 @@ public class Controller implements IController, Observer {
     private IHero hero;
 
     /**
-     * Pseudo
+     * Pseudonyme
      */
     private String pseudo;
 
@@ -48,7 +48,7 @@ public class Controller implements IController, Observer {
     private String[][] scores = null;
 
     /**
-     * Position of Door
+     * Position of the Door
      */
     private Point posDoor = null;
 
