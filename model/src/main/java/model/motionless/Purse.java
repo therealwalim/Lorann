@@ -1,7 +1,7 @@
 package model.motionless;
 
 /**
- * Created by Quentin Strinati on 14/06/2016.
+ * Created by Soltane Benghezal
  */
 
 /** Class creating the Purse extending the Motionless class */
