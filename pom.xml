@@ -109,7 +109,7 @@
 					<reportSet>
 						<id>aggregate</id>
 						<reports>
-						<report>aggregate</report>
+							<report>aggregate</report>
 							<report>test-aggregate</report>
 						</reports>
 					</reportSet>

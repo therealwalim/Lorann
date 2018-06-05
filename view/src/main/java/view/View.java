@@ -59,7 +59,7 @@ public class View implements IView, Runnable {
 		switch (keyCode) {
 			case KeyEvent.VK_NUMPAD1:
 				return ControllerOrder.MAP1;
-		    case KeyEvent.VK_NUMPAD2:
+			case KeyEvent.VK_NUMPAD2:
 				return ControllerOrder.MAP2;
 			case KeyEvent.VK_NUMPAD3:
 				return ControllerOrder.MAP3;
@@ -116,7 +116,6 @@ public class View implements IView, Runnable {
 	 */
 	public void run() {
 		this.viewFrame.setVisible(true);
-		
 	}
 
 	/**

@@ -1,6 +1,10 @@
-LORANN est un projet proposé par l'Exia.Cesi, il consiste à créer un jeu en 2D en utilisant le langage Java les design pattern ainsi que certains framework de ce langage.
+# JPU-BlankProject
+Base de démarrage pour le projet Java/POO/UML des 1ières années Exia-Cesi
+=======
+# lorann
+lorann
 
-# Indice pour les Maps
+# Map Spec
 
 - B : bone.png
 - K : crystal_ball.png
@@ -12,4 +16,3 @@ LORANN est un projet proposé par l'Exia.Cesi, il consiste à créer un jeu en 2
 - L : lorann_XX.png
 - [1-4] : monster_{}.png
 
-# Exia.Cesi Alger

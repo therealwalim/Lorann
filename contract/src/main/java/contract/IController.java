@@ -11,64 +11,52 @@ public interface IController {
 
 	/**
 	 * Start the main gameloop.
-	 * 
-	 * @author Dorian
+     * @author Dorian
 	 */
-	void start(ControllerOrder choice);
+	void start();
 
 	/**
 	 * Order perform.
-	 * 
 	 * @param controllerOrder
-	 *            Method use in every mobile object, and also when load map, to
-	 *            execute the predefined order contain in the ControllerOrder list
+	 * Method use in every mobile object, and also when load map, to execute the predefined order contain in the ControllerOrder list
 	 * @author Dorian
 	 */
 	void orderPerform(ControllerOrder controllerOrder);
 
 	/**
-	 * Dynamically resize the window view according to the map size
-	 * 
+     * Dynamically resize the window view according to the map size
 	 * @return tileMap
-	 * @author Dorian
+     * @author Dorian
 	 */
 	IElement[][] getTileMap();
 
 	/**
-	 * Get the score made at the end of the game (win or loose) for POPUP
-	 * 
+     * Get the score made at the end of the game (win or loose) for POPUP
 	 * @return Score
-	 * @author Dorian
+     * @author Dorian
 	 */
 	int getScore();
 
-	/**
-	 * @param direction
-	 * @param currentPos
-	 * @return
-	 */
-	Point computeNextPos(MobileOrder direction, Point currentPos);
+    /**
+     * @param direction
+     * @param currentPos
+     * @return
+     */
+    Point computeNextPos(MobileOrder direction, Point currentPos);
 
 	/**
-	 * Get the level according to the number of the map played for the draw string
-	 * at the bottom of the window
-	 * 
+     * Get the level according to the number of the map played for the draw string at the bottom of the window
 	 * @return Level
-	 * @author Dorian
+     * @author Dorian
 	 */
 	int getLevel();
 
-	/**
-	 * @param tilemap
-	 *            String representing map with binding of letter with Element
-	 * @return 2-dimensional array representing game (map + mobile)
-	 * @author Romain
-	 */
-	IElement[][] parser(String tilemap);
+    /**
+     * @param tilemap String representing map with binding of letter with Element
+     * @return 2-dimensional array representing game (map + mobile)
+     * @author Romain
+     */
+    IElement[][] parser(String tilemap);
 
 	String[][] getScores();
-
-	void setView(final IView view);
-
-	void setModel(final IModel model);
 }

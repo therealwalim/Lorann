@@ -5,8 +5,10 @@ import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 import contract.IController;
 import contract.IModel;
 
@@ -126,7 +128,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * Builds the view frame.
 	 */
 	private void buildViewFrame() {
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("E:\\xd\\ASPIREVNITRO\\sprite\\FEN.png"));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Walim\\Desktop\\LorannFinal-master\\LorannFinal-master\\Loranne\\Images\\lorannicon.png"));
 		this.setTitle("LORANN");
 		this.viewPanel = new ViewPanel(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,7 +137,6 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setContentPane(this.viewPanel);
 		this.setSize(400, 60);
 		this.setLocationRelativeTo(null);
-		
 	}
 
 	/**
