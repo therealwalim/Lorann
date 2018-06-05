@@ -23,6 +23,7 @@ import model.Model;
 import view.View;
 
 
+
 public class Menu {
 
 	private IController controller;
