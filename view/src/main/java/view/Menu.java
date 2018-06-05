@@ -125,6 +125,7 @@ public class Menu {
 				but4.addActionListener(new ActionD());
 				but5.addActionListener(new ActionE());
 				fen.setVisible(true);
+				
 
 			}
 		});
