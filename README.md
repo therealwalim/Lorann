@@ -1,10 +1,14 @@
 # Groupe 7 - Exia.Cesi Alger
 Base de démarrage pour le projet Java/POO/UML des 1ières années Exia-Cesi
 =======
-# lorann
-lorann
+# Team
 
-# Map Spec
+- Soltane Benghezal
+- Walim Echaib
+- Rayan Benmehal
+- Bilel Bensalah
+
+# Map index
 
 - B : bone.png
 - K : crystal_ball.png
