@@ -146,7 +146,7 @@ public class Controller implements IController, Observer {
             this.view.repaint();
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -312,13 +312,95 @@ public class Controller implements IController, Observer {
         this.destroyFireBall();
         MobileOrder direction = this.hero.getDirection();
         Point currentPos = this.hero.getPos().getLocation();
-        Point nextPos = this.computeNextPos(direction, currentPos);
+        Point nextPos = this.computeNextPosball(direction, currentPos);
         if(!currentPos.equals(nextPos)) {
             this.fireBall = (IFireball) this.model.element('F', nextPos);
-            this.fireBall.setDirection(direction);
+
+            switch (direction)
+            {
+              case Left:
+                  direction = MobileOrder.Right ; 	
+                  this.fireBall.setDirection( direction);
+                  direction = MobileOrder.Left ; 	
+                  Soundd.LoranShoot();
+
+                break;
+              case Right:
+                  direction = MobileOrder.Left ; 	
+                  this.fireBall.setDirection( direction);
+                  direction = MobileOrder.Right ; 	
+                  Soundd.LoranShoot();
+                break;
+              case Up:
+                  direction = MobileOrder.Down ; 	
+                  this.fireBall.setDirection( direction);
+                  direction = MobileOrder.Up ;	
+                  Soundd.LoranShoot();
+                  break;
+
+                   
+              case Down:
+                  direction = MobileOrder.Up ; 
+                  this.fireBall.setDirection( direction);
+                  direction = MobileOrder.Down ; 
+                  Soundd.LoranShoot();
+                  
+                break;
+			default:
+				break;
+            }
+            this.fireBall.setDirection( direction);
             this.swapFireBall(nextPos);
             this.view.repaint();
+            
         }
+    }
+    public Point computeNextPosball(MobileOrder direction, Point currentPos) {
+        Point nextPos = currentPos.getLocation();
+
+        if(direction == null)
+            return nextPos;
+
+        switch (direction) {
+        case Left:
+            if(currentPos.y > 0 &&
+                    tileMap[currentPos.x][currentPos.y + 1].getPermeability())
+            {
+                nextPos = new Point(
+                        currentPos.x,
+                        currentPos.y + 1);
+            }
+            break;
+        case Right:
+            if(currentPos.y < (view.getWidth() / 32) - 1 &&
+                    tileMap[currentPos.x][currentPos.y - 1].getPermeability())
+            {
+                nextPos = new Point(
+                        currentPos.x,
+                        currentPos.y - 1);
+            }
+            break;
+        case Up:
+            if(currentPos.x > 0 &&
+                    tileMap[currentPos.x + 1][currentPos.y].getPermeability()) {
+                nextPos = new Point(
+                        currentPos.x + 1,
+                        currentPos.y);
+            }
+            break;
+        case Down:
+            if(currentPos.x < (view.getHeight() / 32) - 1 &&
+                    tileMap[currentPos.x - 1][currentPos.y].getPermeability()) {
+                nextPos = new Point(
+                        currentPos.x - 1,
+                        currentPos.y);
+            }
+            break;
+		default:
+			break;
+    }
+    return nextPos;
+
     }
     /** Function checking if the hero is moving out of the map,
      * then checking if it collides with an object which permeability is false,
@@ -337,7 +419,7 @@ public class Controller implements IController, Observer {
             this.score += 100;
         } else if (elementName.contains("OpenDoor")) {
             this.level++;
-            if(this.level > 9) {
+            if(this.level > 5) {
                 this.model.upNameAndScore(this.score, this.pseudo);
                 this.view.printMessage(String.format("WELL DONE %s! Your score is : %d\nPress OK to restart the game", this.pseudo, this.score));
                 this.score = 0;
@@ -371,20 +453,92 @@ public class Controller implements IController, Observer {
                     this.destroyFireBall();
                     return;
                 }
+                if(elementName.contains("Hero")) {
+                    this.destroyFireBall();
+                    return;
+                }
+                
+                if (elementName.contains(" ") ) {
+                	
+                	direction = this.fireBall.getDirection();
+                	switch (direction)
+                    {
+                      case Left:
+                          direction = MobileOrder.Right ; 	
+                          this.fireBall.setDirection( direction);
+
+                        break;
+                      case Right:
+                          direction = MobileOrder.Left ; 	
+                          this.fireBall.setDirection( direction);
+
+                        break;
+                      case Up:
+                          direction = MobileOrder.Down ; 	
+                          this.fireBall.setDirection( direction);
+                          break;
+                          
+                          
+                      case Down:
+                          direction = MobileOrder.Up ; 
+                          this.fireBall.setDirection( direction);
+                          
+                        break;
+        			default:
+        				break;
+                    }
+                	
+                     if(this.fireBall != null && this.fireBall.getStep() > 20) {
+                         this.destroyFireBall();
+                     }
+                     
+                     }
+                     
+                     else if (elementName.contains("Door")) {
+                     	direction = this.fireBall.getDirection();
+                    	switch (direction)
+                        {
+                          case Left:
+                              direction = MobileOrder.Right ; 	
+                              this.fireBall.setDirection( direction);
+
+                            break;
+                          case Right:
+                              direction = MobileOrder.Left ; 	
+                              this.fireBall.setDirection( direction);
+
+                            break;
+                          case Up:
+                              direction = MobileOrder.Down ; 	
+                              this.fireBall.setDirection( direction);
+                              break;
+
+                               
+                          case Down:
+                              direction = MobileOrder.Up ; 
+                              this.fireBall.setDirection( direction);
+                              
+                            break;
+            			default:
+            				break;
+                        }
+
+                         if(this.fireBall != null && this.fireBall.getStep() > 20) {
+                             this.destroyFireBall();
+                         }}
             }
         }
         this.fireBall.animate();
-        Point nextPos = this.computeNextPos(this.fireBall.getDirection(), currentPos);
+        Point nextPos = this.computeNextPosball(this.fireBall.getDirection(), currentPos);
 
         this.swapFireBall(nextPos);
 
         this.tileMap[currentPos.x][currentPos.y] = model.element(' ', currentPos.getLocation());
 
-        if(this.fireBall != null && this.fireBall.getStep() > 5) {
+        if(this.fireBall != null && this.fireBall.getStep() > 30) {
             this.destroyFireBall();
         }
     }
-
     /**
      * Swap the fireball in tileMap
      * @param nextPos
@@ -404,10 +558,13 @@ public class Controller implements IController, Observer {
                 nextElement.contains("Purse") ||
                 nextElement.contains("Crystal")) {
             this.fireBall = null;
+            this.destroyFireBall();
+
         }
         else {
             this.fireBall.setLocation(nextPos);
             this.tileMap[nextPos.x][nextPos.y] = this.fireBall;
+
         }
     }
 
@@ -437,7 +594,6 @@ public class Controller implements IController, Observer {
             }
         }
     }
-
     /**
      * @param direction
      * @param currentPos
