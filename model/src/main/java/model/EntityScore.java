@@ -3,7 +3,7 @@ package model;
 /**
  * The Class EntityScore.
  *
- * @author Quentin Strinati
+ * @author Soltane Benghezal
  */
 abstract public class EntityScore {
 }
