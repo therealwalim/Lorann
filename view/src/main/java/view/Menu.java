@@ -31,11 +31,11 @@ public class Menu {
 	private JFrame frmLorann;
 
 	/**
-	 * Launch the application.
+	 * Launch the Menu
 	 */
 
 	/**
-	 * Create the application.
+	 * Creation of the menu
 	 */
 	public Menu(IController controller) {
 		this.controller = controller;
@@ -43,7 +43,7 @@ public class Menu {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Designing our frame
 	 */
 	public void init() {
 		frmLorann = new JFrame();
@@ -255,6 +255,10 @@ public class Menu {
 		frmLorann.setVisible(true);
 
 	}
+	
+	/*
+	* Create interaction between our menu and the game
+	*/
 
 	public class Action implements ActionListener {
 
