@@ -11,20 +11,25 @@ import java.util.Properties;
  */
 class DBProperties extends Properties {
 
+	/**
+	 * 
+	 */
+
+
 	/** The Constant serialVersionUID. */
-	private static final long		serialVersionUID			= 5289057445894568927L;
+	private static final long serialVersionUID = -5544642533772033559L;
 
 	/** The Constant PROPERTIES_FILE_NAME. */
 	private final static String	PROPERTIES_FILE_NAME	= "model.properties";
 
 	/** The url. */
-	private String	url	= "jdbc:mysql://localhost/bilelrayanwalim?useSSL=false&serverTimezone=UTC";
+	private String							url										= "jdbc:mysql://localhost/srt?useSSL=false&serverTimezone=UTC";
 
 	/** The login. */
-	private String	login	= "root";
+	private String							login									= "root";
 
 	/** The password. */
-	private String	password	= "";
+	private String							password							= "";
 
 	/**
 	 * Instantiates a new DB properties.

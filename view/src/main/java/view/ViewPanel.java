@@ -1,206 +1,125 @@
 package view;
 
-import java.awt.GraphicsConfiguration;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import contract.IElement;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import contract.IController;
-import contract.IModel;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.sql.Array;
+import java.sql.SQLException;
+import java.util.Arrays;
+import javax.swing.JPanel;
 
 /**
- * The Class ViewFrame.
+ * The Class ViewPanel.
  *
  * @author Jean-Aymeric Diet
  */
-class ViewFrame extends JFrame implements KeyListener {
+class ViewPanel extends JPanel {
 
-	/** The model. */
-	private IModel model;
-
-	/** The controller. */
-	private IController controller;
-
-
-	private ViewPanel viewPanel;
+	/** The view frame. */
+	private ViewFrame viewFrame;
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -697358409737458175L;
+	private static final long serialVersionUID = -998294702363713521L;
+
+    private IElement[][] tileMap;
 
 	/**
-	 * Instantiates a new view frame.
+	 * Instantiates a new view panel.
 	 *
-	 * @param model
-	 *          the model
-	 * @throws HeadlessException
-	 *           the headless exception
+	 * @param viewFrame
+	 *          the view frame
 	 */
-	public ViewFrame(final IModel model) throws HeadlessException {
-		this.setModel(model);
+	public ViewPanel(final ViewFrame viewFrame) {
+		this.setViewFrame(viewFrame);
 	}
 
 	/**
-	 * Instantiates a new view frame.
+	 * Gets the view frame.
 	 *
-	 * @param model
-	 *          the model
-	 * @param gc
-	 *          the gc
+	 * @return the view frame
 	 */
-	public ViewFrame(final IModel model, final GraphicsConfiguration gc) {
-		super(gc);
-		this.setModel(model);
+	private ViewFrame getViewFrame() {
+		return this.viewFrame;
 	}
 
 	/**
-	 * Instantiates a new view frame.
+	 * Sets the view frame.
 	 *
-	 * @param model
-	 *          the model
-	 * @param title
-	 *          the title
-	 * @throws HeadlessException
-	 *           the headless exception
+	 * @param viewFrame
+	 *          the new view frame
 	 */
-	public ViewFrame(final IModel model, final String title) throws HeadlessException {
-		super(title);
-		this.setModel(model);
-	}
-
-	/**
-	 * Instantiates a new view frame.
-	 *
-	 * @param model
-	 *          the model
-	 * @param title
-	 *          the title
-	 * @param gc
-	 *          the gc
-	 */
-	public ViewFrame(final IModel model, final String title, final GraphicsConfiguration gc) {
-		super(title, gc);
-		this.setModel(model);
-	}
-
-	/**
-	 * Gets the controller.
-	 *
-	 * @return the controller
-	 */
-	public IController getController() {
-		return this.controller;
-	}
-
-	/**
-	 * Sets the controller.
-	 *
-	 * @param controller
-	 *          the new controller
-	 */
-	protected void setController(final IController controller) {
-		this.controller = controller;
-		this.buildViewFrame();
-	}
-
-	/**
-	 * Gets the model.
-	 *
-	 * @return the model
-	 */
-	protected IModel getModel() {
-		return this.model;
-	}
-
-	/**
-	 * Sets the model.
-	 *
-	 * @param model
-	 *          the new model
-	 */
-	private void setModel(final IModel model) {
-		this.model = model;
-	}
-
-	/**
-	 * Builds the view frame.
-	 */
-	private void buildViewFrame() {
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Walim\\Desktop\\LorannFinal-master\\LorannFinal-master\\Loranne\\Images\\lorannicon.png"));
-		this.setTitle("LORANN");
-		this.viewPanel = new ViewPanel(this);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.addKeyListener(this);
-		this.setContentPane(this.viewPanel);
-		this.setSize(400, 60);
-		this.setLocationRelativeTo(null);
-	}
-
-	/**
-	 * Update tileMap information
-	 */
-	public void update() {
-		this.viewPanel.update(
-                this.controller.getTileMap()
-        );
+	private void setViewFrame(final ViewFrame viewFrame) {
+		this.viewFrame = viewFrame;
 	}
 
     /**
-     * Modified windows size taking border in count
+     * Setup tileMap in ViewPanel
+     * @param tileMap
+     *
+     * @see contract.IController#parser(String)
+     */
+    public void update(IElement[][] tileMap) {
+        this.tileMap = tileMap;
+		this.setSize(this.tileMap[0].length, this.tileMap.length);
+		this.repaint();
+	}
+
+    /**
+     * Modified windows size taking border in count and sprite size (32x32)
      *
      * @param width
      * @param height
      */
     public void setSize(int width, int height) {
-        super.setSize(width + this.getInsets().left + this.getInsets().right,
-                height + this.getInsets().top + this.getInsets().bottom);
+        super.setSize((width*32) + this.getInsets().left + this.getInsets().right,
+                (height*32) + this.getInsets().top + this.getInsets().bottom + 40);
+        this.viewFrame.setSize(width*32, height*32 + 40);
     }
 
 	/**
-	 * Prints the message.
+	 * Refresh score using tileMap
 	 *
-	 * @param message
-	 *          the message
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-	public void printMessage(final String message) {
-		JOptionPane.showMessageDialog(null, message);
-	}
+	@Override
+	protected void paintComponent(final Graphics graphics) {
+        graphics.setColor(Color.black);
+        graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+		graphics.setColor(Color.yellow);
+		graphics.setFont(new Font(null, Font.BOLD, 20));
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-	 */
-	public void keyTyped(final KeyEvent e) {
+        int scoreIndex = 0;
 
-	}
+        String[][] scores = null;
 
-	/**
-	 * Execute when user press a key
-	 *
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-	 */
-	public void keyPressed(final KeyEvent e) {
-		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
-	}
+        if(this.tileMap != null)
+        {
+            for (int i = 0; i < this.tileMap.length; i++)
+            {
+                for(int j = 0; j < this.tileMap[0].length; j++)
+                {
+                    BufferedImage image = tileMap[i][j].getImage();
+                    if(image != null)
+                        graphics.drawImage(image, j*32, i*32, null);
+                    else if(tileMap[i][j].getClass().getSimpleName().contains("Title")) {
+                        graphics.drawString("HIGHSCORE", j*32, i*32 + 20);
+                    } else if(tileMap[i][j].getClass().getSimpleName().contains("Score")) {
+						if (scores == null)
+							scores = this.viewFrame.getController().getScores();
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-	 */
-	public void keyReleased(final KeyEvent e) {
-
-	}
-
-	/**
-	 * Get user pseudo via popup form
-	 * @return user pseudo
-	 */
-	public String pseudo() {
-		return JOptionPane.showInputDialog("Pseudo");
-	}
+                        if(scoreIndex < scores[0].length) {
+                            graphics.drawString(
+                                    String.format("%s %s",
+                                            scores[0][scoreIndex],
+                                            scores[1][scoreIndex]), j*32 + 5, i*32 + 20);
+                            scoreIndex++;
+                        }
+                    }
+                }
+            }
+        }
+		graphics.drawString(String.format("SCORE : %d    LEVEL : %d",
+                this.viewFrame.getController().getScore(),
+                this.viewFrame.getController().getLevel()), 10, this.getHeight() - 20);
+    }
 }
