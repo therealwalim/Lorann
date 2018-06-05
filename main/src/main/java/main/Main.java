@@ -18,6 +18,9 @@ public abstract class Main {
 	 *          the arguments
 	 */
 	public static void main(final String[] args) {
+	       /*
+		* The launcher of the game
+		*/
 		final Model			model = new Model();
 		final View			view = new View(model);
 		final Controller	controller = new Controller(view, model);
