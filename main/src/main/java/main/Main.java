@@ -21,7 +21,6 @@ public abstract class Main {
 	public static void main(final String[] args) {
 	
 		Menu m = new Menu(new Controller());
-
 		
 	}
 }
